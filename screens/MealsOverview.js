@@ -34,6 +34,7 @@ function MealsOverview({ route }) {
         data={displayedMeals}
         keyExtractor={(item) => item.id}
         renderItem={renderMealItem}
+
       />
     </View>
   );
