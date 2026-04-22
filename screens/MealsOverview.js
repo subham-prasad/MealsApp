@@ -1,19 +1,35 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
-import { MEALS } from "../data/dummy-data";
+import { MEALS,CATEGORIES } from "../data/dummy-data";
 import { useRoute } from "@react-navigation/native";
 import MealItem from "../components/MealItem";
+import { useLayoutEffect } from "react";
 
-function MealsOverview({ route }) {
+function MealsOverview({ route, navigation }) {
   const catId = route.params.categoryId;
 
   const displayedMeals = MEALS.filter((mealItem) => {
     return mealItem.categoryIds.indexOf(catId) >= 0;
   });
 
+
+  useLayoutEffect(() => {
+  
+  const cateGoryTitle = CATEGORIES.find((category) => category.id === catId).title;
+
+
+  navigation.setOptions({
+    title: cateGoryTitle,
+  });
+  },[])
+
+
+
   function renderMealItem(itemData) {
 
+  
     const item = itemData.item
     const mealItemProps = {
+      id: item.id,
         title: item.title,
         imageUrl: item.imageUrl,
         duration: item.duration,
